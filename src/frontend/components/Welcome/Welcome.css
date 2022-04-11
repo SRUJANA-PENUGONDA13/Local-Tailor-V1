@@ -1,0 +1,40 @@
+.main-container {
+  align-items: center;
+  z-index: 1;
+  padding: 8rem 8rem 6rem 8rem;
+  gap: 1rem;
+}
+
+.media {
+  position: relative;
+  align-items: center;
+}
+
+.media-image {
+  width: 100%;
+  height: 30rem;
+}
+
+.media-content {
+  font-size: var(--text--small);
+  align-items: center;
+  flex-wrap: wrap;
+  color: var(--lt--primary--color);
+}
+
+.shp-now-btn {
+  position: relative;
+  font-size: var(--text--xsmall);
+  top: 15rem;
+  background-color: var(--lt--primary--color);
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.shp-now-btn a {
+  color: var(--lt--text--primary--color);
+}
+
+.title {
+  font-size: var(--text--large);
+}

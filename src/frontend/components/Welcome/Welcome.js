@@ -1,0 +1,33 @@
+import React from "react";
+import { Categories } from "../index";
+import { frontImage } from "../../assets/index";
+import "./Welcome.css";
+
+const Welcome = () => {
+  return (
+    <React.Fragment>
+      <main className="main-container flex-dir-col">
+        <div className="media flex-dir-col">
+          <div className="media-content flex-dir-col">
+            <h1>
+              Welcome to <span className="title">Local Tailor</span>
+            </h1>
+            <span className="text-medium">
+              for awesome, budget friendly men, women and kids wear by best
+              skilled local tailors
+            </span>
+            <button className="shp-now-btn">
+              <a className="text-decoration-none" href="/products">
+                Shop Now
+              </a>
+            </button>
+            <img className="media-image" src={frontImage} alt=""></img>
+          </div>
+        </div>
+        <Categories />
+      </main>
+    </React.Fragment>
+  );
+};
+
+export { Welcome };

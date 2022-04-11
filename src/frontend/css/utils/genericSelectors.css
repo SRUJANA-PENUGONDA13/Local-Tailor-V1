@@ -1,0 +1,71 @@
+body {
+  min-height: 100vh;
+}
+* {
+  box-sizing: border-box;
+}
+h1,
+h5,
+h3 {
+  padding: 0px;
+  margin: 0px;
+}
+.text-decoration-none {
+  text-decoration: none;
+}
+
+.flex-center-box {
+  align-items: center;
+  justify-content: center;
+}
+
+.centered-box {
+  width: 24rem;
+  border: 2px solid var(--lt--text--primary--color);
+  padding: 2rem;
+  gap: 1.5rem;
+  box-shadow: 3px 1px 6px 1px var(--lt--primary--color);
+  color: var(--lt--primary--color);
+  background-color: var(--centered--box-color);
+}
+
+.input-field {
+  border: 1px solid var(--lt--primary--color);
+  margin-top: 1rem;
+  width: 20rem;
+}
+
+.account-link {
+  text-align: center;
+  color: var(--lt--primary--color);
+}
+
+.primary-btn {
+  color: var(--lt--text--primary--color);
+  background-color: var(--lt--primary--color);
+  text-align: center;
+  font-size: 1.3rem;
+}
+
+.box-header {
+  text-align: center;
+}
+
+.box-body {
+  gap: 1rem;
+}
+
+.field {
+  font-size: var(--text--xsmall);
+  font-weight: 500;
+}
+
+.card-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  grid-gap: 2rem;
+}
+
+.container-spacing {
+  padding: 6rem 1rem 1rem 1rem;
+}
