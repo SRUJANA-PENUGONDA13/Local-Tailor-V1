@@ -1,0 +1,29 @@
+.featured-categories {
+  align-items: center;
+  color: var(--lt--primary--color);
+}
+
+.categories {
+  font-size: var(--text--medium);
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  flex-wrap: wrap;
+  gap: 4rem;
+}
+
+.categorie {
+  border-radius: 50%;
+  height: 10rem;
+  width: 10rem;
+  aspect-ratio: 1/1;
+  text-align: center;
+  padding-top: 3.5rem;
+  border: 1px solid black;
+  color: var(--lt--text--primary--color);
+  background-color: var(--lt--primary--color);
+}
+
+.categorie a {
+  color: var(--lt--text--primary--color);
+}

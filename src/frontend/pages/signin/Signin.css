@@ -1,0 +1,8 @@
+.forgot-password-link {
+  font-size: var(--text--xxsmall);
+  padding-left: 0.9rem;
+}
+
+.rememberMe {
+  font-size: var(--text--xxsmall);
+}
