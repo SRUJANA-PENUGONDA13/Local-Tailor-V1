@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "./Signup.css";
 
 const Signup = () => {
@@ -43,20 +44,20 @@ const Signup = () => {
                 I accept of Terms & Conditions
               </label>
             </div>
-            <a
+            <Link
               role="button"
               className="btn link-btn primary-btn"
-              href="/signin"
+              to="/signin"
             >
               Create New Account
-            </a>
-            <a
+            </Link>
+            <Link
               role="button"
               className="account-link text-decoration-none field"
-              href="/signin"
+              to="/signin"
             >
               Already have an account
-            </a>
+            </Link>
           </div>
         </div>
       </main>
