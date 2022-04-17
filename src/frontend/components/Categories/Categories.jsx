@@ -3,8 +3,6 @@ import { Link } from "react-router-dom";
 import { categories } from "../../../backend/db/categories";
 import "./Categories.css";
 
-console.log(categories);
-
 const Categories = () => {
   return (
     <div className="featured-categories flex-dir-col">
