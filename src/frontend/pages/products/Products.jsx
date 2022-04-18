@@ -44,7 +44,7 @@ const Products = () => {
   );
 
   const selectedRatedProducts = getRatedProducts(
-    selectedTailorProducts,
+    selectedCategoryProducts,
     filters.rating
   );
 

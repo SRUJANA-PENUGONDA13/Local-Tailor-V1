@@ -1,3 +1,5 @@
+import { Categories } from "../../components";
+
 const getCategorizedProducts = (products, categories) => {
   let isCategorySelected = false;
   Object.entries(categories).forEach(([categorie, status]) => {
@@ -5,7 +7,7 @@ const getCategorizedProducts = (products, categories) => {
       isCategorySelected = true;
     }
   });
-
+  console.log(categories);
   if (!isCategorySelected) return products;
 
   return products.filter((product) => {
