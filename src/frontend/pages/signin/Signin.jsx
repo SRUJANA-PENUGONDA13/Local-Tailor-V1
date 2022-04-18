@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "./Signin.css";
 
 const Signin = () => {
@@ -33,24 +34,27 @@ const Signin = () => {
               <label className="rememberMe" for="rememberMe">
                 Remember me
               </label>
-              <a href="#" className="forgot-password-link text-decoration-none">
+              <Link
+                to="#"
+                className="forgot-password-link text-decoration-none"
+              >
                 Forgot your Password?
-              </a>
+              </Link>
             </div>
-            <a
+            <Link
               role="button"
               className="btn link-btn primary-btn"
-              href="/products"
+              to="/products"
             >
               Login
-            </a>
-            <a
+            </Link>
+            <Link
               role="button"
               className="account-link text-decoration-none field"
-              href="/signup"
+              to="/signup"
             >
               Create New Account
-            </a>
+            </Link>
           </div>
         </div>
       </main>

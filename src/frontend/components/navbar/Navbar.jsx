@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import "./Navbar.css";
 
 const Navbar = () => {
@@ -12,9 +13,9 @@ const Navbar = () => {
         <div className="lt-nav-body flex-dir-row">
           <div className="lt-nav-left-sec flex-dir-row">
             <span>
-              <a className="text-decoration-none brand-name" href="/">
+              <Link className="text-decoration-none brand-name" to="/">
                 Local Tailor
-              </a>
+              </Link>
             </span>
           </div>
           {(routePath === "/products" ||
@@ -31,28 +32,28 @@ const Navbar = () => {
               </div>
               <div className="lt-nav-right-sec flex-dir-row">
                 <div className="badge">
-                  <a
+                  <Link
                     className="text-decoration-none"
-                    href={loginStatus === "active" ? "/wishlist" : "/signin"}
+                    to={loginStatus === "active" ? "/wishlist" : "/signin"}
                   >
                     <i className="far fa-heart"></i>
                     <span className="circle badge-pos-top-right">
                       <p>4</p>
                     </span>
-                  </a>
+                  </Link>
                 </div>
                 <div className="badge">
-                  <a
+                  <Link
                     className="text-decoration-none"
-                    href={loginStatus === "active" ? "/cart" : "/signin"}
+                    to={loginStatus === "active" ? "/cart" : "/signin"}
                   >
                     <i className="fas fa-shopping-cart"></i>
                     <span className="circle badge-pos-top-right">
                       <p>4</p>
                     </span>
-                  </a>
+                  </Link>
                 </div>
-                <a className="text-decoration-none" href="/signin">
+                <Link className="text-decoration-none" to="/signin">
                   <i
                     className={
                       loginStatus === "active"
@@ -61,7 +62,7 @@ const Navbar = () => {
                     }
                     aria-hidden="true"
                   ></i>
-                </a>
+                </Link>
               </div>
             </>
           )}
@@ -69,12 +70,15 @@ const Navbar = () => {
             routePath === "/signup" ||
             routePath === "/signin") && (
             <div className="lt-nav-right-sec flex-dir-row">
-              <a className="explore-link text-decoration-none" href="/products">
+              <Link
+                className="explore-link text-decoration-none"
+                to="/products"
+              >
                 Explore
-              </a>
-              <a className="text-decoration-none" href="/signin">
+              </Link>
+              <Link className="text-decoration-none" to="/signin">
                 <i className="far fa-user" aria-hidden="true"></i>
-              </a>
+              </Link>
             </div>
           )}
         </div>

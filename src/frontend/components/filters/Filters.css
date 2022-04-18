@@ -1,0 +1,45 @@
+.left-nav {
+  height: 38rem;
+  width: 18rem;
+  padding: 2rem;
+  gap: 1rem;
+  letter-spacing: 0.03rem;
+  color: var(--lt--text--primary--color);
+  position: sticky;
+  top: 6rem;
+  overflow: scroll;
+  background-color: var(--lt--primary--color);
+}
+
+.left-nav .clear-link {
+  color: var(--lt--text--primary--color);
+}
+
+.filter-header {
+  margin-bottom: 1rem;
+  justify-content: space-between;
+}
+
+.slider-number {
+  justify-content: space-between;
+}
+
+.filters-btn {
+  font-size: 1.3rem;
+  color: var(--lt--text--primary--color);
+  display: none;
+}
+
+.tailor-container,
+.category-container,
+.rating-container,
+.sortby-container {
+  gap: 0.5rem;
+  font-size: larger;
+}
+
+.filter-btn {
+  color: var(--lt--primary--color);
+  font-size: 1rem;
+  display: none;
+}

@@ -1,4 +1,6 @@
 import React from "react";
+import { Link } from "react-router-dom";
+import { categories } from "../../../backend/db/categories";
 import "./Categories.css";
 
 const Categories = () => {
@@ -9,21 +11,16 @@ const Categories = () => {
         Below are the trending featured products of Local Tailor
       </p>
       <div className="categories flex-dir-row">
-        <p className="categorie">
-          <a className="text-decoration-none" href="/products">
-            Men
-          </a>
-        </p>
-        <p className="categorie">
-          <a className="text-decoration-none" href="/products">
-            Women
-          </a>
-        </p>
-        <p className="categorie">
-          <a className="text-decoration-none" href="/products">
-            Children
-          </a>
-        </p>
+        {categories &&
+          categories.map((categorie) => {
+            return (
+              <p className="categorie">
+                <Link className="text-decoration-none" to="/products">
+                  {categorie.categoryName}
+                </Link>
+              </p>
+            );
+          })}
       </div>
     </div>
   );

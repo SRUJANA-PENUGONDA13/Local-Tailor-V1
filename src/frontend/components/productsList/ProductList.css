@@ -1,0 +1,23 @@
+.product-body {
+  width: 100%;
+  color: var(--lt--primary--color);
+}
+
+.products-header {
+  padding-bottom: 1rem;
+}
+
+.product-body .item-img {
+  height: 25rem;
+}
+
+.heart-btn {
+  position: absolute;
+  top: 10px;
+  border: none;
+  right: 10px;
+}
+
+.heart-btn .fa-heart {
+  color: var(--heart-icon-color);
+}

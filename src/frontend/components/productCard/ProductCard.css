@@ -1,0 +1,52 @@
+.card {
+  height: 38rem;
+  padding: 1rem;
+  gap: 0.5rem;
+}
+
+.img-content {
+  height: 25rem;
+}
+
+.item-img {
+  height: inherit;
+}
+
+.item-name {
+  font-size: 1.5rem;
+}
+
+.item-name,
+.item-details,
+.prices {
+  padding: 0px;
+}
+
+.card-content {
+  height: 7rem;
+  gap: 1rem;
+}
+
+.item-details {
+  gap: 0.5rem;
+}
+
+.discount-rating {
+  justify-content: space-between;
+}
+
+.rating .fa {
+  color: #de7921;
+}
+
+.prices {
+  gap: 1rem;
+}
+
+.initial-price {
+  font-size: 1.2rem;
+}
+
+.rating {
+  gap: 0.5rem;
+}
