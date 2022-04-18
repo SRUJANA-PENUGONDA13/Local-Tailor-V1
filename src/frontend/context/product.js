@@ -8,7 +8,7 @@ const ProductProvider = ({ children }) => {
     productReducer,
     productInitialState
   );
-  console.log("Inside Context", productState);
+
   return (
     <ProductContext.Provider value={[productState, productDispatch]}>
       {children}

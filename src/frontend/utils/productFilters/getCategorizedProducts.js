@@ -7,7 +7,7 @@ const getCategorizedProducts = (products, categories) => {
       isCategorySelected = true;
     }
   });
-  console.log(categories);
+
   if (!isCategorySelected) return products;
 
   return products.filter((product) => {
