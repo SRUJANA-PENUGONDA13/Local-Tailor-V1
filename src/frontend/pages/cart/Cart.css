@@ -1,4 +1,16 @@
-.cart {
-  padding: 12rem;
-  height: 90vh;
+.cart-container {
+  padding: 14rem;
+  min-height: 90vh;
+  color: var(--lt--primary--color);
+}
+
+.cart-header {
+  text-align: center;
+  padding: 1rem;
+}
+
+.cart-body {
+  display: grid;
+  grid-template-columns: 3fr 2fr;
+  padding: 1rem 2rem 1rem 7rem;
 }

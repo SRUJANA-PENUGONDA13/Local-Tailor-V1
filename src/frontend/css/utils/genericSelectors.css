@@ -45,6 +45,7 @@ h3 {
   background-color: var(--lt--primary--color);
   text-align: center;
   font-size: 1.3rem;
+  cursor: pointer;
 }
 
 .box-header {
@@ -61,11 +62,18 @@ h3 {
 }
 
 .card-container {
+  min-height: 50vh;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
   grid-gap: 2rem;
+  justify-items: center;
+  align-items: center;
 }
 
 .container-spacing {
   padding: 6rem 1rem 1rem 1rem;
+}
+
+.no-products {
+  font-size: 1.5rem;
 }

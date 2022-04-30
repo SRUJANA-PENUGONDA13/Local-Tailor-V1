@@ -1,12 +1,12 @@
 .card {
-  height: 38rem;
+  /* height: 38rem; */
   padding: 1rem;
   gap: 0.5rem;
 }
 
-.img-content {
+/* .img-content {
   height: 25rem;
-}
+} */
 
 .item-img {
   height: inherit;
@@ -36,7 +36,7 @@
 }
 
 .rating .fa {
-  color: #de7921;
+  color: var(--rating--star--color);
 }
 
 .prices {
@@ -49,4 +49,14 @@
 
 .rating {
   gap: 0.5rem;
+}
+
+.heart-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+  background-color: darkgray;
+  border-radius: 50%;
+  padding: 8px;
 }

@@ -5,3 +5,6 @@ export { Welcome } from "./Welcome/Welcome";
 export { Filters } from "./filters/Filters";
 export { ProductCard } from "./productCard/ProductCard";
 export { ProductList } from "./productsList/ProductList";
+export { CartProductList } from "./cartProductList/CartProductList";
+export { CartProductCard } from "./cartProductCard/CartProductCard";
+export { CartPrice } from "./cartPrice/CartPrice";
