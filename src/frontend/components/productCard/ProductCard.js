@@ -36,7 +36,7 @@ const ProductCard = ({ productDetails, page }) => {
 
     const products = removeProductFromList(wishlist, product);
     productDispatch({
-      type: "REMOVE_FROM_WISHLIST",
+      type: "UPDATE_WISHLIST",
       payload: products,
     });
   };
@@ -121,7 +121,7 @@ const ProductCard = ({ productDetails, page }) => {
           Move to cart
         </Link>
       )}
-      {isProductExistsInList(cart, productDetails) ? (
+      {page !== "wishlist" && isProductExistsInList(cart, productDetails) ? (
         <Link
           className="btn primary-btn go-to-cart text-decoration-none"
           to="/cart"

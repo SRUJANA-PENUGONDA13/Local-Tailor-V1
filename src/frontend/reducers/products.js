@@ -17,6 +17,7 @@ const productInitialState = {
   },
   wishlist: [],
   cart: [],
+  isLoading: false,
   billDetails: { totalDiscount: 0, totalPrice: 0 },
 };
 
@@ -76,6 +77,9 @@ const productReducer = (state, { type, payload }) => {
           totalDiscount: payload.totalDiscountPrice,
         },
       };
+
+    case "UPDATE_LOADING_FLAG":
+      return { ...state, isLoading: payload };
 
     default:
       return state;

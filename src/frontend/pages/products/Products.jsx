@@ -18,10 +18,13 @@ const Products = () => {
   useEffect(() => {
     (async () => {
       try {
+        productDispatch({ type: "UPDATE_LOADING_FLAG", payload: true });
         const {
           data: { products },
         } = await axios.get("/api/products");
+
         productDispatch({ type: "LOAD_ALL_PRODUCTS", payload: products });
+        productDispatch({ type: "UPDATE_LOADING_FLAG", payload: false });
       } catch (e) {
         console.error("Error in retrieving products data", e);
       }
