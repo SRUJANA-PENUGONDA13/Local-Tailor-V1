@@ -15,14 +15,20 @@ const productInitialState = {
     price: 1500,
     rating: 0,
   },
+  wishlist: [],
+  cart: [],
+  isLoading: false,
+  billDetails: { totalDiscount: 0, totalPrice: 0 },
 };
 
 const productReducer = (state, { type, payload }) => {
   switch (type) {
     case "LOAD_ALL_PRODUCTS":
       return { ...state, products: payload };
+
     case "INCLUDE_PRICE":
       return { ...state, filters: { ...state.filters, price: payload } };
+
     case "INCLUDE_TAILOR":
       return {
         ...state,
@@ -34,6 +40,7 @@ const productReducer = (state, { type, payload }) => {
           },
         },
       };
+
     case "INCLUDE_CATEGORY":
       return {
         ...state,
@@ -45,12 +52,35 @@ const productReducer = (state, { type, payload }) => {
           },
         },
       };
+
     case "INCLUDE_RATING":
       return { ...state, filters: { ...state.filters, rating: payload } };
+
     case "INCLUDE_SORTBY":
       return { ...state, filters: { ...state.filters, sortBy: payload } };
+
     case "CLEAR_FILTER":
       return { ...state, filters: productInitialState.filters };
+
+    case "UPDATE_WISHLIST":
+      return { ...state, wishlist: payload };
+
+    case "UPDATE_CART":
+      return { ...state, cart: payload };
+
+    case "UPDATE_BILL":
+      return {
+        ...state,
+        billDetails: {
+          ...state.billDetails,
+          totalPrice: payload.totalPrice,
+          totalDiscount: payload.totalDiscountPrice,
+        },
+      };
+
+    case "UPDATE_LOADING_FLAG":
+      return { ...state, isLoading: payload };
+
     default:
       return state;
   }

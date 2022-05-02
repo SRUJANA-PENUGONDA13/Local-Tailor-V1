@@ -1,11 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { useProduct } from "../../context/index";
 import "./Navbar.css";
 
 const Navbar = () => {
   const routePath = window.location.pathname;
   // Yet to add Authetication
   const [loginStatus, setLoginStatus] = useState("active");
+  const [{ wishlist, cart }, productDispatch] = useProduct();
+  const wishlistItemCount = wishlist.length;
+  const cartItemCount = cart.length;
 
   return (
     <React.Fragment>
@@ -22,23 +26,40 @@ const Navbar = () => {
             routePath === "/cart" ||
             routePath === "/wishlist") && (
             <>
-              <div className="lt-nav-mid-sec">
-                <i className="fa fa-search search-icon"></i>
-                <input
-                  type="text"
-                  className="search-bar"
-                  placeholder="Search for product"
-                />
-              </div>
+              {routePath === "/products" && (
+                <div className="lt-nav-mid-sec">
+                  <i className="fa fa-search search-icon"></i>
+                  <input
+                    type="text"
+                    className="search-bar"
+                    placeholder="Search for product"
+                  />
+                </div>
+              )}
               <div className="lt-nav-right-sec flex-dir-row">
+                <Link
+                  className="explore-link text-decoration-none"
+                  to="/products"
+                >
+                  Explore
+                </Link>
                 <div className="badge">
                   <Link
                     className="text-decoration-none"
                     to={loginStatus === "active" ? "/wishlist" : "/signin"}
                   >
                     <i className="far fa-heart"></i>
-                    <span className="circle badge-pos-top-right">
-                      <p>4</p>
+                    <span
+                      className="circle badge-pos-top-right"
+                      style={
+                        wishlistItemCount > 9
+                          ? { padding: "3px 4px" }
+                          : { padding: "4px 8px" }
+                      }
+                    >
+                      <p>
+                        <b>{wishlistItemCount}</b>
+                      </p>
                     </span>
                   </Link>
                 </div>
@@ -48,8 +69,15 @@ const Navbar = () => {
                     to={loginStatus === "active" ? "/cart" : "/signin"}
                   >
                     <i className="fas fa-shopping-cart"></i>
-                    <span className="circle badge-pos-top-right">
-                      <p>4</p>
+                    <span
+                      className="circle badge-pos-top-right"
+                      style={
+                        cartItemCount > 9
+                          ? { padding: "3px 4px" }
+                          : { padding: "4px 8px" }
+                      }
+                    >
+                      <p>{cartItemCount}</p>
                     </span>
                   </Link>
                 </div>
@@ -82,9 +110,7 @@ const Navbar = () => {
             </div>
           )}
         </div>
-        {(routePath === "/products" ||
-          routePath === "/cart" ||
-          routePath === "/wishlist") && (
+        {routePath === "/products" && (
           <div className="lt-nav-mobile-mid-sec">
             <i className="fa fa-search search-icon"></i>
             <input

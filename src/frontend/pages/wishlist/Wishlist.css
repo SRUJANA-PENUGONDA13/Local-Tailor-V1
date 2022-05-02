@@ -1,4 +1,17 @@
-.wishlist {
-  padding: 12rem;
-  height: 90vh;
+.wishlist-container {
+  padding: 14rem;
+  min-height: 90vh;
+  color: var(--lt--primary--color);
+}
+
+.wishlist-body .item-img {
+  height: 18rem;
+}
+
+.wishlist-header {
+  text-align: center;
+}
+
+.wishlist-body {
+  padding: 2rem;
 }

@@ -1,11 +1,89 @@
 import "./ProductCard.css";
-const ProductCard = ({ productDetails }) => {
+import { useState, useEffect } from "react";
+import { useProduct } from "../../context/index";
+import { Link } from "react-router-dom";
+import { updateBillDetails } from "../../utils/cartBill/updateBillDetails";
+import {
+  addProductToList,
+  removeProductFromList,
+  isProductExistsInList,
+} from "../../utils/generic/index";
+
+const ProductCard = ({ productDetails, page }) => {
+  const [wishlistState, setWishlistState] = useState(false);
+  const [{ wishlist, cart }, productDispatch] = useProduct();
+
+  const wishListHandler = (product) => {
+    setWishlistState(!wishlistState);
+
+    if (wishlistState === true) {
+      const products = removeProductFromList(wishlist, product);
+      productDispatch({
+        type: "UPDATE_WISHLIST",
+        payload: products,
+      });
+    } else {
+      const products = addProductToList(wishlist, product);
+      productDispatch({
+        type: "UPDATE_WISHLIST",
+        payload: products,
+      });
+    }
+  };
+
+  const moveCartHandler = (product) => {
+    cartHandler(product);
+
+    const products = removeProductFromList(wishlist, product);
+    productDispatch({
+      type: "UPDATE_WISHLIST",
+      payload: products,
+    });
+  };
+
+  const cartHandler = (product) => {
+    const products = addProductToList(cart, product, page);
+
+    productDispatch({
+      type: "UPDATE_CART",
+      payload: products,
+    });
+
+    const cartSummary = updateBillDetails(products);
+
+    productDispatch({
+      type: "UPDATE_BILL",
+      payload: cartSummary,
+    });
+  };
+
+  useEffect(() => {
+    if (page === "wishlist") {
+      setWishlistState(true);
+    }
+  }, [wishlist]);
+
+  useEffect(() => {
+    if (page === "products") {
+      const productStatus = isProductExistsInList(wishlist, productDetails);
+      productStatus ? setWishlistState(!wishlistState) : "";
+    }
+  }, []);
+
   return (
     <div className="card badge-card">
       <div className="img-content">
-        <button className="heart-btn">
-          <i className="fas fa-heart fa-2x"></i>
-        </button>
+        <a
+          className="heart-btn"
+          onClick={() => {
+            wishListHandler(productDetails);
+          }}
+        >
+          <i
+            style={{ color: wishlistState ? "#ff0000" : "#d3d3d3" }}
+            className=" fas fa-heart fa-1x"
+          ></i>
+        </a>
         <img
           className="item-img"
           src={productDetails.image}
@@ -34,8 +112,32 @@ const ProductCard = ({ productDetails }) => {
           </div>
         </div>
       </div>
-
-      <button className="btn primary-btn add-to-cart">Add to cart</button>
+      {page === "wishlist" && (
+        <Link
+          className="btn primary-btn move-to-cart text-decoration-none"
+          to="/cart"
+          onClick={() => moveCartHandler(productDetails)}
+        >
+          Move to cart
+        </Link>
+      )}
+      {page !== "wishlist" && isProductExistsInList(cart, productDetails) ? (
+        <Link
+          className="btn primary-btn go-to-cart text-decoration-none"
+          to="/cart"
+        >
+          Go to cart
+        </Link>
+      ) : page === "products" ? (
+        <button
+          className="btn primary-btn add-to-cart"
+          onClick={() => cartHandler(productDetails)}
+        >
+          Add to cart
+        </button>
+      ) : (
+        ""
+      )}
     </div>
   );
 };

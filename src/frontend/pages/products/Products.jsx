@@ -18,10 +18,13 @@ const Products = () => {
   useEffect(() => {
     (async () => {
       try {
+        productDispatch({ type: "UPDATE_LOADING_FLAG", payload: true });
         const {
           data: { products },
         } = await axios.get("/api/products");
+
         productDispatch({ type: "LOAD_ALL_PRODUCTS", payload: products });
+        productDispatch({ type: "UPDATE_LOADING_FLAG", payload: false });
       } catch (e) {
         console.error("Error in retrieving products data", e);
       }
@@ -55,7 +58,16 @@ const Products = () => {
   return (
     <main className="product-container container-spacing flex-dir-row">
       <Filters />
-      <ProductList products={sortedProducts} />
+      <div className="product-body flex-dir-col">
+        <button
+          className="btn filters-btn primary-btn"
+          onClick={() => openFilters()}
+        >
+          filters
+        </button>
+        <h2 className="products-header">Showing All Products</h2>
+        <ProductList products={sortedProducts} page="products" />
+      </div>
     </main>
   );
 };

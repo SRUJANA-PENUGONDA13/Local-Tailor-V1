@@ -1,0 +1,31 @@
+.remove-from-cart {
+  margin-top: 1rem;
+}
+
+.horizontal-card {
+  width: 26rem;
+  height: 19rem;
+  gap: 2rem;
+  color: var(--lt--primary--color);
+}
+
+.cart-card-container .add-to-wishlist {
+  background-color: lightgray;
+  color: var(--lt--primary--color);
+}
+
+.cart-container .item-img {
+  height: 16rem;
+  width: 10rem;
+}
+
+.cart-container .discount-rating {
+  height: 2rem;
+}
+
+.remove-from-cart,
+.add-to-wishlist {
+  background-color: var(--lt--primary--color);
+  font-size: 1rem;
+  cursor: pointer;
+}
