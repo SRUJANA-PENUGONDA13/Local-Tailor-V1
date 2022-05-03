@@ -1,8 +1,25 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { signupService } from "../../services/signupService";
 import "./Signup.css";
 
 const Signup = () => {
+  const [user, setUser] = useState({
+    name: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+  });
+  const navigate = useNavigate();
+  const signUpHandler = async (user) => {
+    const encodedToken = await signupService(user);
+    if (!!encodedToken) {
+      localStorage.setItem("token", encodedToken);
+    }
+    navigate("/");
+  };
+
   return (
     <React.Fragment>
       <main className="main-container flex-center-box flex-dir-col">
@@ -10,7 +27,24 @@ const Signup = () => {
           <div className="box-header">
             <h1>Signup</h1>
           </div>
-          <div className="box-body flex-dir-col">
+          <form
+            className="box-body flex-dir-col"
+            onSubmit={(event) => {
+              event.preventDefault();
+              signUpHandler(user);
+            }}
+          >
+            <div className="field">
+              <label for="name">Name</label>
+              <input
+                className="input-field"
+                type="text"
+                id="name"
+                placeholder="Srujana Penugonda"
+                onChange={(e) => setUser({ ...user, name: e.target.value })}
+                required
+              />
+            </div>
             <div className="field">
               <label for="email">Email address</label>
               <input
@@ -18,6 +52,8 @@ const Signup = () => {
                 type="text"
                 id="email"
                 placeholder="srujana@outlook.com"
+                onChange={(e) => setUser({ ...user, email: e.target.value })}
+                required
               />
             </div>
             <div className="field">
@@ -27,6 +63,8 @@ const Signup = () => {
                 type="password"
                 id="password"
                 placeholder="*************"
+                onChange={(e) => setUser({ ...user, password: e.target.value })}
+                required
               />
             </div>
             <div className="field">
@@ -36,21 +74,30 @@ const Signup = () => {
                 type="password"
                 id="password"
                 placeholder="*************"
+                onChange={(e) =>
+                  setUser({ ...user, confirmPassword: e.target.value })
+                }
+                required
               />
             </div>
             <div className="field">
-              <input type="checkbox" value="lsRememberMe" id="rememberMe" />
+              <input
+                type="checkbox"
+                value="lsRememberMe"
+                id="rememberMe"
+                required
+              />
               <label id="aggrement" for="rememberMe">
                 I accept of Terms & Conditions
               </label>
             </div>
-            <Link
-              role="button"
+            <button
+              type="submit"
               className="btn link-btn primary-btn"
-              to="/signin"
+              disabled={user.password !== user.confirmPassword}
             >
               Create New Account
-            </Link>
+            </button>
             <Link
               role="button"
               className="account-link text-decoration-none field"
@@ -58,7 +105,12 @@ const Signup = () => {
             >
               Already have an account
             </Link>
-          </div>
+            {user.password !== user.confirmPassword && (
+              <p className="error">
+                password and confirm password are not same
+              </p>
+            )}
+          </form>
         </div>
       </main>
     </React.Fragment>

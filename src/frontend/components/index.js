@@ -1,3 +1,5 @@
+import { frontImage } from "../assets";
+
 export { Navbar } from "./navbar/Navbar";
 export { Footer } from "./footer/Footer";
 export { Categories } from "./Categories/Categories";
@@ -8,3 +10,4 @@ export { ProductList } from "./productsList/ProductList";
 export { CartProductList } from "./cartProductList/CartProductList";
 export { CartProductCard } from "./cartProductCard/CartProductCard";
 export { CartPrice } from "./cartPrice/CartPrice";
+export { RequireAuth } from "./requireAuth/RequireAuth";

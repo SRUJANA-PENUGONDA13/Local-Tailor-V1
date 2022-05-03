@@ -1,7 +1,7 @@
 import "./ProductCard.css";
 import { useState, useEffect } from "react";
 import { useProduct } from "../../context/index";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { updateBillDetails } from "../../utils/cartBill/updateBillDetails";
 import {
   addProductToList,
@@ -12,6 +12,7 @@ import {
 const ProductCard = ({ productDetails, page }) => {
   const [wishlistState, setWishlistState] = useState(false);
   const [{ wishlist, cart }, productDispatch] = useProduct();
+  const navigate = useNavigate();
 
   const wishListHandler = (product) => {
     setWishlistState(!wishlistState);
@@ -33,12 +34,12 @@ const ProductCard = ({ productDetails, page }) => {
 
   const moveCartHandler = (product) => {
     cartHandler(product);
-
     const products = removeProductFromList(wishlist, product);
     productDispatch({
       type: "UPDATE_WISHLIST",
       payload: products,
     });
+    navigate("/cart");
   };
 
   const cartHandler = (product) => {
@@ -113,21 +114,20 @@ const ProductCard = ({ productDetails, page }) => {
         </div>
       </div>
       {page === "wishlist" && (
-        <Link
+        <button
           className="btn primary-btn move-to-cart text-decoration-none"
-          to="/cart"
           onClick={() => moveCartHandler(productDetails)}
         >
           Move to cart
-        </Link>
+        </button>
       )}
       {page !== "wishlist" && isProductExistsInList(cart, productDetails) ? (
-        <Link
+        <button
           className="btn primary-btn go-to-cart text-decoration-none"
-          to="/cart"
+          onClick={() => navigate("/cart")}
         >
           Go to cart
-        </Link>
+        </button>
       ) : page === "products" ? (
         <button
           className="btn primary-btn add-to-cart"

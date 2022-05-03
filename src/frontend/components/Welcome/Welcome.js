@@ -1,9 +1,12 @@
 import React from "react";
 import { Categories } from "../index";
 import { frontImage } from "../../assets/index";
+import { useNavigate } from "react-router-dom";
 import "./Welcome.css";
 
 const Welcome = () => {
+  const navigate = useNavigate();
+
   return (
     <React.Fragment>
       <main className="main-container flex-dir-col">
@@ -16,10 +19,11 @@ const Welcome = () => {
               for awesome, budget friendly men, women and kids wear by best
               skilled local tailors
             </span>
-            <button className="shp-now-btn">
-              <a className="text-decoration-none" href="/products">
-                Shop Now
-              </a>
+            <button
+              className="btn primary-btn shp-now-btn"
+              onClick={() => navigate("/products")}
+            >
+              Shop Now
             </button>
             <img className="media-image" src={frontImage} alt=""></img>
           </div>
