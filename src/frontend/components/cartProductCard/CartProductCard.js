@@ -15,34 +15,42 @@ const CartProductCard = ({ productDetails }) => {
 
   const updateCartBill = (products) => {
     const cartSummary = updateBillDetails(products);
+
     productDispatch({
       type: "UPDATE_BILL",
       payload: cartSummary,
     });
   };
 
-  useEffect(() => {
-    const updatedProducts = updateQuantity(cart, productDetails, quantity);
+  const proudctQuantityHandler = async ({ _id }, actionType) => {
+    const updatedProducts = await updateQuantity(_id, actionType);
+
     productDispatch({
       type: "UPDATE_CART",
       payload: updatedProducts,
     });
-    updateCartBill(updatedProducts);
-  }, [quantity]);
+  };
 
-  const removeCartHandler = (product) => {
-    const cartProducts = removeProductFromList(cart, product);
+  useEffect(() => {
+    updateCartBill(cart);
+  }, [cart]);
+
+  const removeCartHandler = async (product) => {
+    const cartProducts = await removeProductFromList(cart, product, "cart");
+
     productDispatch({
       type: "UPDATE_CART",
       payload: cartProducts,
     });
+
     updateCartBill(cartProducts);
   };
 
-  const addWishlistHandler = (product) => {
+  const addWishlistHandler = async (product) => {
     removeCartHandler(product);
+
     if (!isProductExistsInList(wishlist, product)) {
-      const products = addProductToList(wishlist, product);
+      const products = await addProductToList(wishlist, product, "wishlist");
       productDispatch({
         type: "UPDATE_WISHLIST",
         payload: products,
@@ -79,17 +87,25 @@ const CartProductCard = ({ productDetails }) => {
               <i className="fa fa-star"></i>
             </span>
           </div>
-          <label for="quantity">
+          <label className="quantity flex-dir-row">
             Quantity :
-            <input
-              type="number"
-              id="quantity"
-              name="quantity"
-              min="1"
-              max="5"
-              value={quantity}
-              onChange={(event) => setQuantity(event.target.value)}
-            />
+            <button
+              className="primary-btn"
+              onClick={() =>
+                proudctQuantityHandler(productDetails, "increment")
+              }
+            >
+              +
+            </button>
+            <p>{productDetails.qty}</p>
+            <button
+              onClick={() => {
+                if (productDetails.qty > 1)
+                  proudctQuantityHandler(productDetails, "decrement");
+              }}
+            >
+              -
+            </button>
           </label>
           <button
             class="btn remove-from-cart"

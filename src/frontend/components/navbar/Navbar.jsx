@@ -5,13 +5,25 @@ import "./Navbar.css";
 
 const Navbar = () => {
   const routePath = window.location.pathname;
-  // Yet to add Authetication
   const [{ wishlist, cart }, productDispatch] = useProduct();
   const { isAuthenticated, setAuthenticationStatus } = useAuth();
   const wishlistItemCount = wishlist.length;
   const cartItemCount = cart.length;
 
-  console.log("Is Authenticated", isAuthenticated);
+  const signoutHandler = () => {
+    setAuthenticationStatus(false);
+
+    productDispatch({
+      type: "UPDATE_WISHLIST",
+      payload: [],
+    });
+
+    productDispatch({
+      type: "UPDATE_CART",
+      payload: [],
+    });
+  };
+
   return (
     <React.Fragment>
       <nav className="lt-nav-container">
@@ -79,9 +91,7 @@ const Navbar = () => {
                 <Link
                   className="text-decoration-none"
                   to={isAuthenticated ? "/" : "/signin"}
-                  onClick={() =>
-                    isAuthenticated ? setAuthenticationStatus(false) : ""
-                  }
+                  onClick={() => (isAuthenticated ? signoutHandler() : "")}
                 >
                   <i
                     className={

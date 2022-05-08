@@ -6,7 +6,10 @@ import { useAuth } from "../../context/index";
 import "./Signin.css";
 
 const Signin = () => {
-  const [loginDetails, setLoginDetails] = useState({ email: "", password: "" });
+  const [loginDetails, setLoginDetails] = useState({
+    email: "",
+    password: "",
+  });
   const { isAuthenticated, setAuthenticationStatus } = useAuth();
   const [error, setError] = useState(false);
   const navigate = useNavigate();
@@ -15,10 +18,11 @@ const Signin = () => {
     const { foundUser, encodedToken } = await signinService(loginDetails);
 
     setError(!encodedToken);
+
     if (!!encodedToken) {
       setAuthenticationStatus(true);
+      localStorage.setItem("token", encodedToken);
       navigate("/");
-      console.log("User Loggedin");
     }
   };
 
@@ -43,6 +47,7 @@ const Signin = () => {
                 type="text"
                 id="email"
                 placeholder="srujana@outlook.com"
+                value={loginDetails.email}
                 onChange={(e) =>
                   setLoginDetails({ ...loginDetails, email: e.target.value })
                 }
@@ -56,6 +61,7 @@ const Signin = () => {
                 type="password"
                 id="password"
                 placeholder="*************"
+                value={loginDetails.password}
                 onChange={(e) =>
                   setLoginDetails({ ...loginDetails, password: e.target.value })
                 }
@@ -81,6 +87,20 @@ const Signin = () => {
               to="/products"
             >
               Login
+            </button>
+            <button
+              role="button"
+              type="submit"
+              className="btn link-btn primary-btn"
+              to="/products"
+              onClick={() =>
+                setLoginDetails({
+                  email: "adarshbalika@gmail.com",
+                  password: "adarshbalika",
+                })
+              }
+            >
+              Login As Guest
             </button>
             <Link
               role="button"

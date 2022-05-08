@@ -1,8 +1,8 @@
 import "./ProductCard.css";
 import { useState, useEffect } from "react";
 import { useProduct } from "../../context/index";
-import { Link, useNavigate } from "react-router-dom";
-import { updateBillDetails } from "../../utils/cartBill/updateBillDetails";
+import { useNavigate } from "react-router-dom";
+import { updateBillDetails, updateQuantity } from "../../utils/cartBill";
 import {
   addProductToList,
   removeProductFromList,
@@ -14,17 +14,23 @@ const ProductCard = ({ productDetails, page }) => {
   const [{ wishlist, cart }, productDispatch] = useProduct();
   const navigate = useNavigate();
 
-  const wishListHandler = (product) => {
+  const wishListHandler = async (product) => {
     setWishlistState(!wishlistState);
 
     if (wishlistState === true) {
-      const products = removeProductFromList(wishlist, product);
+      const products = await removeProductFromList(
+        wishlist,
+        product,
+        "wishlist"
+      );
+
       productDispatch({
         type: "UPDATE_WISHLIST",
         payload: products,
       });
     } else {
-      const products = addProductToList(wishlist, product);
+      const products = await addProductToList(wishlist, product, "wishlist");
+
       productDispatch({
         type: "UPDATE_WISHLIST",
         payload: products,
@@ -32,18 +38,30 @@ const ProductCard = ({ productDetails, page }) => {
     }
   };
 
-  const moveCartHandler = (product) => {
-    cartHandler(product);
-    const products = removeProductFromList(wishlist, product);
+  const moveCartHandler = async (product) => {
+    if (isProductExistsInList(cart, product)) {
+      const products = await updateQuantity(product._id, "increment");
+
+      productDispatch({
+        type: "UPDATE_CART",
+        payload: products,
+      });
+    } else {
+      cartHandler(product);
+    }
+
+    const products = await removeProductFromList(wishlist, product, "wishlist");
+
     productDispatch({
       type: "UPDATE_WISHLIST",
       payload: products,
     });
+
     navigate("/cart");
   };
 
-  const cartHandler = (product) => {
-    const products = addProductToList(cart, product, page);
+  const cartHandler = async (product) => {
+    const products = await addProductToList(cart, product, "cart");
 
     productDispatch({
       type: "UPDATE_CART",
