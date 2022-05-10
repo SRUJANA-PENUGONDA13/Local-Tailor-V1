@@ -1,15 +1,29 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { useProduct } from "../../context/index";
+import { useProduct, useAuth } from "../../context/index";
 import "./Navbar.css";
 
 const Navbar = () => {
   const routePath = window.location.pathname;
-  // Yet to add Authetication
-  const [loginStatus, setLoginStatus] = useState("active");
   const [{ wishlist, cart }, productDispatch] = useProduct();
+  const { isAuthenticated, setAuthenticationStatus } = useAuth();
   const wishlistItemCount = wishlist.length;
   const cartItemCount = cart.length;
+
+  const signoutHandler = () => {
+    localStorage.removeItem("token");
+    setAuthenticationStatus(false);
+
+    productDispatch({
+      type: "UPDATE_WISHLIST",
+      payload: [],
+    });
+
+    productDispatch({
+      type: "UPDATE_CART",
+      payload: [],
+    });
+  };
 
   return (
     <React.Fragment>
@@ -44,10 +58,7 @@ const Navbar = () => {
                   Explore
                 </Link>
                 <div className="badge">
-                  <Link
-                    className="text-decoration-none"
-                    to={loginStatus === "active" ? "/wishlist" : "/signin"}
-                  >
+                  <Link className="text-decoration-none" to="/wishlist">
                     <i className="far fa-heart"></i>
                     <span
                       className="circle badge-pos-top-right"
@@ -64,10 +75,7 @@ const Navbar = () => {
                   </Link>
                 </div>
                 <div className="badge">
-                  <Link
-                    className="text-decoration-none"
-                    to={loginStatus === "active" ? "/cart" : "/signin"}
-                  >
+                  <Link className="text-decoration-none" to="/cart">
                     <i className="fas fa-shopping-cart"></i>
                     <span
                       className="circle badge-pos-top-right"
@@ -81,12 +89,14 @@ const Navbar = () => {
                     </span>
                   </Link>
                 </div>
-                <Link className="text-decoration-none" to="/signin">
+                <Link
+                  className="text-decoration-none"
+                  to={isAuthenticated ? "/" : "/signin"}
+                  onClick={() => (isAuthenticated ? signoutHandler() : "")}
+                >
                   <i
                     className={
-                      loginStatus === "active"
-                        ? "fas fa-sign-out-alt"
-                        : "far fa-user"
+                      isAuthenticated ? "fas fa-sign-out-alt" : "far fa-user"
                     }
                     aria-hidden="true"
                   ></i>
@@ -104,8 +114,17 @@ const Navbar = () => {
               >
                 Explore
               </Link>
-              <Link className="text-decoration-none" to="/signin">
-                <i className="far fa-user" aria-hidden="true"></i>
+              <Link
+                className="text-decoration-none"
+                to={isAuthenticated ? "/" : "/signin"}
+              >
+                <i
+                  className={
+                    isAuthenticated ? "fas fa-sign-out-alt" : "far fa-user"
+                  }
+                  aria-hidden="true"
+                  onClick={() => (isAuthenticated ? signoutHandler() : "")}
+                ></i>
               </Link>
             </div>
           )}

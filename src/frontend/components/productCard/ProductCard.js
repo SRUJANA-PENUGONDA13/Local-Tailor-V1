@@ -1,8 +1,8 @@
 import "./ProductCard.css";
 import { useState, useEffect } from "react";
-import { useProduct } from "../../context/index";
-import { Link } from "react-router-dom";
-import { updateBillDetails } from "../../utils/cartBill/updateBillDetails";
+import { useProduct, useAuth } from "../../context/index";
+import { useNavigate } from "react-router-dom";
+import { updateBillDetails, updateQuantity } from "../../utils/cartBill";
 import {
   addProductToList,
   removeProductFromList,
@@ -12,18 +12,26 @@ import {
 const ProductCard = ({ productDetails, page }) => {
   const [wishlistState, setWishlistState] = useState(false);
   const [{ wishlist, cart }, productDispatch] = useProduct();
+  const { isAuthenticated, setAuthenticationStatus } = useAuth();
+  const navigate = useNavigate();
 
-  const wishListHandler = (product) => {
+  const wishListHandler = async (product) => {
     setWishlistState(!wishlistState);
 
     if (wishlistState === true) {
-      const products = removeProductFromList(wishlist, product);
+      const products = await removeProductFromList(
+        wishlist,
+        product,
+        "wishlist"
+      );
+
       productDispatch({
         type: "UPDATE_WISHLIST",
         payload: products,
       });
     } else {
-      const products = addProductToList(wishlist, product);
+      const products = await addProductToList(wishlist, product, "wishlist");
+
       productDispatch({
         type: "UPDATE_WISHLIST",
         payload: products,
@@ -31,18 +39,30 @@ const ProductCard = ({ productDetails, page }) => {
     }
   };
 
-  const moveCartHandler = (product) => {
-    cartHandler(product);
+  const moveCartHandler = async (product) => {
+    if (isProductExistsInList(cart, product)) {
+      const products = await updateQuantity(product._id, "increment");
 
-    const products = removeProductFromList(wishlist, product);
+      productDispatch({
+        type: "UPDATE_CART",
+        payload: products,
+      });
+    } else {
+      cartHandler(product);
+    }
+
+    const products = await removeProductFromList(wishlist, product, "wishlist");
+
     productDispatch({
       type: "UPDATE_WISHLIST",
       payload: products,
     });
+
+    navigate("/cart");
   };
 
-  const cartHandler = (product) => {
-    const products = addProductToList(cart, product, page);
+  const cartHandler = async (product) => {
+    const products = await addProductToList(cart, product, "cart");
 
     productDispatch({
       type: "UPDATE_CART",
@@ -76,7 +96,9 @@ const ProductCard = ({ productDetails, page }) => {
         <a
           className="heart-btn"
           onClick={() => {
-            wishListHandler(productDetails);
+            isAuthenticated
+              ? wishListHandler(productDetails)
+              : navigate("/signin");
           }}
         >
           <i
@@ -113,25 +135,26 @@ const ProductCard = ({ productDetails, page }) => {
         </div>
       </div>
       {page === "wishlist" && (
-        <Link
+        <button
           className="btn primary-btn move-to-cart text-decoration-none"
-          to="/cart"
           onClick={() => moveCartHandler(productDetails)}
         >
           Move to cart
-        </Link>
+        </button>
       )}
       {page !== "wishlist" && isProductExistsInList(cart, productDetails) ? (
-        <Link
+        <button
           className="btn primary-btn go-to-cart text-decoration-none"
-          to="/cart"
+          onClick={() => navigate("/cart")}
         >
           Go to cart
-        </Link>
+        </button>
       ) : page === "products" ? (
         <button
           className="btn primary-btn add-to-cart"
-          onClick={() => cartHandler(productDetails)}
+          onClick={() =>
+            isAuthenticated ? cartHandler(productDetails) : navigate("/signin")
+          }
         >
           Add to cart
         </button>

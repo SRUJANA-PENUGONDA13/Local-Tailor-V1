@@ -1,8 +1,10 @@
 import React from "react";
 import "./Products.css";
-import { useProduct } from "../../context/index";
+import { useProduct, useAuth } from "../../context/index";
 import { useEffect } from "react";
 import { ProductList, Filters } from "../../components/index";
+import { getCartProducts } from "../../services/cart";
+import { getWishlistProducts } from "../../services/wishlist";
 import axios from "axios";
 import {
   getProductsByTailor,
@@ -14,21 +16,35 @@ import {
 
 const Products = () => {
   const [{ products, filters }, productDispatch] = useProduct();
+  const { isAuthenticated } = useAuth();
+  const token = localStorage.getItem("token");
 
-  useEffect(() => {
-    (async () => {
-      try {
-        productDispatch({ type: "UPDATE_LOADING_FLAG", payload: true });
-        const {
-          data: { products },
-        } = await axios.get("/api/products");
+  useEffect(async () => {
+    try {
+      productDispatch({ type: "UPDATE_LOADING_FLAG", payload: true });
+      const {
+        data: { products },
+      } = await axios.get("/api/products");
 
-        productDispatch({ type: "LOAD_ALL_PRODUCTS", payload: products });
-        productDispatch({ type: "UPDATE_LOADING_FLAG", payload: false });
-      } catch (e) {
-        console.error("Error in retrieving products data", e);
+      productDispatch({ type: "LOAD_ALL_PRODUCTS", payload: products });
+      productDispatch({ type: "UPDATE_LOADING_FLAG", payload: false });
+
+      if (isAuthenticated) {
+        const cartProducts = await getCartProducts(token);
+        productDispatch({
+          type: "UPDATE_CART",
+          payload: cartProducts,
+        });
+
+        const wishlistProducts = await getWishlistProducts(token);
+        productDispatch({
+          type: "UPDATE_WISHLIST",
+          payload: wishlistProducts,
+        });
       }
-    })();
+    } catch (e) {
+      console.error("Error in retrieving products data", e);
+    }
   }, []);
 
   const selectedPriceRangeProducts = getProductInPriceRange(

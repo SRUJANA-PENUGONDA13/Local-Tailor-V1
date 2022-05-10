@@ -2,6 +2,7 @@ import React from "react";
 import "./Cart.css";
 import { CartProductList, CartPrice } from "../../components";
 import { useProduct } from "../../context/index";
+import { useEffect } from "react";
 
 const Cart = () => {
   const [{ cart }, productDispatch] = useProduct();
