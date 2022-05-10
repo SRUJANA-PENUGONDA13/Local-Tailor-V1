@@ -13,7 +13,7 @@ const updateProductQuantity = async (type, _id, token) => {
     );
     return cart;
   } catch (e) {
-    console.log(e);
+    console.error(e);
     return [];
   }
 };

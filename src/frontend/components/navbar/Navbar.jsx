@@ -11,6 +11,7 @@ const Navbar = () => {
   const cartItemCount = cart.length;
 
   const signoutHandler = () => {
+    localStorage.removeItem("token");
     setAuthenticationStatus(false);
 
     productDispatch({
@@ -113,8 +114,17 @@ const Navbar = () => {
               >
                 Explore
               </Link>
-              <Link className="text-decoration-none" to="/signin">
-                <i className="far fa-user" aria-hidden="true"></i>
+              <Link
+                className="text-decoration-none"
+                to={isAuthenticated ? "/" : "/signin"}
+              >
+                <i
+                  className={
+                    isAuthenticated ? "fas fa-sign-out-alt" : "far fa-user"
+                  }
+                  aria-hidden="true"
+                  onClick={() => (isAuthenticated ? signoutHandler() : "")}
+                ></i>
               </Link>
             </div>
           )}

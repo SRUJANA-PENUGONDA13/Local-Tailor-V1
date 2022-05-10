@@ -1,6 +1,6 @@
 import "./ProductCard.css";
 import { useState, useEffect } from "react";
-import { useProduct } from "../../context/index";
+import { useProduct, useAuth } from "../../context/index";
 import { useNavigate } from "react-router-dom";
 import { updateBillDetails, updateQuantity } from "../../utils/cartBill";
 import {
@@ -12,6 +12,7 @@ import {
 const ProductCard = ({ productDetails, page }) => {
   const [wishlistState, setWishlistState] = useState(false);
   const [{ wishlist, cart }, productDispatch] = useProduct();
+  const { isAuthenticated, setAuthenticationStatus } = useAuth();
   const navigate = useNavigate();
 
   const wishListHandler = async (product) => {
@@ -95,7 +96,9 @@ const ProductCard = ({ productDetails, page }) => {
         <a
           className="heart-btn"
           onClick={() => {
-            wishListHandler(productDetails);
+            isAuthenticated
+              ? wishListHandler(productDetails)
+              : navigate("/signin");
           }}
         >
           <i
@@ -149,7 +152,9 @@ const ProductCard = ({ productDetails, page }) => {
       ) : page === "products" ? (
         <button
           className="btn primary-btn add-to-cart"
-          onClick={() => cartHandler(productDetails)}
+          onClick={() =>
+            isAuthenticated ? cartHandler(productDetails) : navigate("/signin")
+          }
         >
           Add to cart
         </button>

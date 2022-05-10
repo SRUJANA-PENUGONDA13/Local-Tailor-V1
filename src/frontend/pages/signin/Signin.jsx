@@ -20,8 +20,8 @@ const Signin = () => {
     setError(!encodedToken);
 
     if (!!encodedToken) {
-      setAuthenticationStatus(true);
       localStorage.setItem("token", encodedToken);
+      setAuthenticationStatus(true);
       navigate("/");
     }
   };

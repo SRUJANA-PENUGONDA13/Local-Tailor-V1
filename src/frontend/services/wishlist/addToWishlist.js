@@ -14,7 +14,7 @@ const addToWishlist = async (product, token) => {
 
     return wishlist;
   } catch (e) {
-    console.log(e);
+    console.error(e);
     return [];
   }
 };
