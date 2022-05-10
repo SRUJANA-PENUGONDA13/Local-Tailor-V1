@@ -6,7 +6,6 @@ const signupService = async ({ name, email, password }) => {
       data: { encodedToken },
     } = await axios.post(`/api/auth/signup`, {
       firstName: name,
-      lastName: "",
       email: email,
       password: password,
     });
