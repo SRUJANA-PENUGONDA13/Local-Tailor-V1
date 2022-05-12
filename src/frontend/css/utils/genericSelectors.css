@@ -81,3 +81,8 @@ h3 {
 .error {
   color: var(--error--text--color);
 }
+
+*::-webkit-scrollbar {
+  width: 8px;
+  background-color: var(--light-gray);
+}

@@ -1,7 +1,7 @@
 import React from "react";
 import "./Products.css";
 import { useProduct, useAuth } from "../../context/index";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { ProductList, Filters } from "../../components/index";
 import { getCartProducts } from "../../services/cart";
 import { getWishlistProducts } from "../../services/wishlist";
@@ -17,9 +17,14 @@ import {
 const Products = () => {
   const [{ products, filters }, productDispatch] = useProduct();
   const { isAuthenticated } = useAuth();
+  const [displayFilters, setdisplayFilters] = useState(false);
+  const [filterBtnText, setFilterBtnText] = useState("filters");
   const token = localStorage.getItem("token");
 
   useEffect(async () => {
+    const innerWidth = window.innerWidth;
+    innerWidth < 500 ? setdisplayFilters(false) : setdisplayFilters(true);
+
     try {
       productDispatch({ type: "UPDATE_LOADING_FLAG", payload: true });
       const {
@@ -47,6 +52,10 @@ const Products = () => {
     }
   }, []);
 
+  useEffect(() => {
+    displayFilters ? setFilterBtnText("close") : setFilterBtnText("filters");
+  }, [displayFilters]);
+
   const selectedPriceRangeProducts = getProductInPriceRange(
     products,
     filters.price
@@ -73,13 +82,13 @@ const Products = () => {
   );
   return (
     <main className="product-container container-spacing flex-dir-row">
-      <Filters />
+      {displayFilters && <Filters />}
       <div className="product-body flex-dir-col">
         <button
           className="btn filters-btn primary-btn"
-          onClick={() => openFilters()}
+          onClick={() => setdisplayFilters(!displayFilters)}
         >
-          filters
+          {filterBtnText}
         </button>
         <h2 className="products-header">Showing All Products</h2>
         <ProductList products={sortedProducts} page="products" />

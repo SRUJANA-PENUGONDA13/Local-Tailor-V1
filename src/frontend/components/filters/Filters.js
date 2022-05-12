@@ -200,9 +200,6 @@ const Filters = () => {
           </div>
         </div>
       </div>
-      <button className="btn filter-btn" onClick={() => closeFilters()}>
-        Filter
-      </button>
     </div>
   );
 };
