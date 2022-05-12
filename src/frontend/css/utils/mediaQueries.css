@@ -71,7 +71,7 @@
 
   .horizontal-card {
     width: fit-content;
-    height: 21rem;
+    min-height: 20rem;
   }
 }
 @media only screen and (min-width: 600px) {
