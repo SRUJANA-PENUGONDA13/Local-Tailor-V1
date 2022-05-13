@@ -10,6 +10,7 @@ const getCartProducts = async (token) => {
     return cart;
   } catch (e) {
     console.error(e);
+    return [];
   }
 };
 export { getCartProducts };

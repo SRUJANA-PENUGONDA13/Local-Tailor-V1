@@ -12,7 +12,7 @@ const signinService = async ({ email, password }) => {
 
     return { foundUser, encodedToken };
   } catch (e) {
-    return { foundUser, encodedToken };
+    return {};
   }
 };
 export { signinService };

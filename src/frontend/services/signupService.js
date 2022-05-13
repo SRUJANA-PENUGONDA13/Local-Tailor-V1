@@ -13,6 +13,7 @@ const signupService = async ({ name, email, password }) => {
     return encodedToken;
   } catch (e) {
     console.error(e);
+    return "";
   }
 };
 export { signupService };
