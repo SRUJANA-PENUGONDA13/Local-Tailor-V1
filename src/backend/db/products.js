@@ -26,7 +26,7 @@ import {
 export const products = [
   {
     _id: uuid(),
-    title: "Elegant gown style kurti",
+    title: "Elegant gown kurti",
     origincalPrice: 600,
     discountPrice: 450,
     categoryName: "Women",

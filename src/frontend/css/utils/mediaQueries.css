@@ -18,9 +18,8 @@
 
   .left-nav {
     width: 100%;
-    height: 40rem;
+    height: 45rem;
     position: unset;
-    display: none;
     gap: 1rem;
   }
 
@@ -39,7 +38,7 @@
   }
 
   .main-container {
-    padding: 10rem 3rem 5rem 3rem;
+    padding: 12rem 3rem 5rem 3rem;
   }
 
   .product-container {
@@ -48,7 +47,7 @@
   }
 
   .container-spacing {
-    padding: 11rem 1rem 1rem 1rem;
+    padding: 13rem 1rem 1rem 1rem;
     place-items: center;
   }
 
@@ -64,6 +63,15 @@
   .filters-btn {
     display: block;
     margin: 2rem;
+  }
+
+  .cart-price-details {
+    width: 20rem;
+  }
+
+  .horizontal-card {
+    width: fit-content;
+    height: 24rem;
   }
 }
 @media only screen and (min-width: 600px) {

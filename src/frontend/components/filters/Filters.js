@@ -97,12 +97,12 @@ const Filters = () => {
               <div className="tailor">
                 <input
                   type="checkbox"
-                  id="tailor-1"
+                  id={tailor.tailorName}
                   name={tailor.tailorName}
                   value={tailor.tailorName}
                   checked={filters.tailors[tailor.tailorName.toLowerCase()]}
                 />
-                <label for="tailor-1">{tailor.tailorName}</label>
+                <label for={tailor.tailorName}>{tailor.tailorName}</label>
               </div>
             );
           })}
@@ -200,9 +200,6 @@ const Filters = () => {
           </div>
         </div>
       </div>
-      <button className="btn filter-btn" onClick={() => closeFilters()}>
-        Filter
-      </button>
     </div>
   );
 };
