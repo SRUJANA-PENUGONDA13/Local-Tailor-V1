@@ -82,6 +82,34 @@ h3 {
   color: var(--error--text--color);
 }
 
+.password-field {
+  border: none;
+  padding: 0.6rem;
+  width: 20rem;
+}
+
+.password-field:focus {
+  outline: none;
+}
+
+.password-sec:hover {
+  border: 2px solid var(--password--input--border);
+}
+
+.password-sec {
+  border: 1px solid var(--lt--primary--color);
+  justify-content: center;
+  padding: 0px 5px;
+  margin-top: 1rem;
+  align-items: center;
+  border-radius: 10px;
+  box-sizing: border-box;
+}
+
+.password-icon {
+  cursor: pointer;
+}
+
 *::-webkit-scrollbar {
   width: 8px;
   background-color: var(--light-gray);

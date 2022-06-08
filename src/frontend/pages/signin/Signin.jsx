@@ -10,8 +10,10 @@ const Signin = () => {
     email: "",
     password: "",
   });
+
   const { isAuthenticated, setAuthenticationStatus } = useAuth();
   const [error, setError] = useState(false);
+  const [passwordIcon, setPasswordIcon] = useState(false);
   const navigate = useNavigate();
 
   const signinHandler = async (loginDetails) => {
@@ -56,17 +58,33 @@ const Signin = () => {
             </div>
             <div className="field">
               <label for="password">Password</label>
-              <input
-                className="input-field"
-                type="password"
-                id="password"
-                placeholder="*************"
-                value={loginDetails.password}
-                onChange={(e) =>
-                  setLoginDetails({ ...loginDetails, password: e.target.value })
-                }
-                required
-              />
+              <div className="password-sec flex-dir-row">
+                <input
+                  className="password-field"
+                  type={passwordIcon ? "" : "password"}
+                  id="password"
+                  placeholder="*************"
+                  value={loginDetails.password}
+                  onChange={(e) =>
+                    setLoginDetails({
+                      ...loginDetails,
+                      password: e.target.value,
+                    })
+                  }
+                  required
+                />
+                {passwordIcon ? (
+                  <i
+                    class="fa-regular fa-eye password-icon"
+                    onClick={() => setPasswordIcon(!passwordIcon)}
+                  ></i>
+                ) : (
+                  <i
+                    class="fa-regular fa-eye-slash password-icon"
+                    onClick={() => setPasswordIcon(!passwordIcon)}
+                  ></i>
+                )}
+              </div>
             </div>
             <div className="field">
               <input type="checkbox" value="lsRememberMe" id="rememberMe" />
