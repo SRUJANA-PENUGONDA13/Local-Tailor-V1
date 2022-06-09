@@ -6,16 +6,16 @@ const ProductList = ({ products, page }) => {
   const [{ isLoading }, productDispatch] = useProduct();
   return (
     <div className="card-container">
-      {products &&
-        products.map((product) => {
-          return <ProductCard productDetails={product} page={page} />;
-        })}
       {!isLoading && products.length === 0 && (
         <p className="no-products">No products</p>
       )}
       {isLoading && products.length === 0 && (
         <p className="no-products">Loading products</p>
       )}
+      {products &&
+        products.map((product) => {
+          return <ProductCard productDetails={product} page={page} />;
+        })}
     </div>
   );
 };
